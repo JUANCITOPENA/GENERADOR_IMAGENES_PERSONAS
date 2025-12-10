@@ -2,4 +2,4 @@
 GENERADOR_IMAGENES_PERSONAS
 
 
-![Foto ](FOTOS_PERSONAS/persona.png)
+![Foto ](FOTOS_PERSONAS/persona_1.png)
