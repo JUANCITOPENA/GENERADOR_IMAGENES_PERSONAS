@@ -3,131 +3,53 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Generador Avatares IA - Definitivo</title>
+<title>Generador Final - Hombres y Mujeres Separados</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-<!-- Librerías Externas Estables -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 <style>
-    :root {
-        --primary: #0066ff;
-        --bg: #121212;
-        --card: #1e1e1e;
-        --text: #ffffff;
-    }
+    :root { --primary: #0066ff; --bg: #121212; --card: #1e1e1e; --text: #ffffff; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-        font-family: 'Roboto', sans-serif;
-        background: var(--bg);
-        color: var(--text);
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-    }
-    .app-container {
-        display: flex;
-        flex: 1;
-        height: 100vh;
-        overflow: hidden;
-    }
-    /* --- SIDEBAR --- */
-    .sidebar {
-        width: 320px;
-        background: var(--card);
-        padding: 25px;
-        border-right: 1px solid #333;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        z-index: 100;
-        overflow-y: auto;
-    }
+    body { font-family: 'Roboto', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
+    .app-container { display: flex; flex: 1; height: 100vh; overflow: hidden; }
+    .sidebar { width: 320px; background: var(--card); padding: 25px; border-right: 1px solid #333; display: flex; flex-direction: column; gap: 20px; z-index: 100; overflow-y: auto; }
     .sidebar h2 { color: var(--primary); font-size: 1.2rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
     .input-group { display: flex; flex-direction: column; gap: 8px; }
     label { font-size: 0.85rem; color: #aaa; font-weight: bold; }
-   
-    input, select {
-        background: #2b2b2b;
-        border: 1px solid #444;
-        color: white;
-        padding: 12px;
-        border-radius: 6px;
-        outline: none;
-    }
+    input, select { background: #2b2b2b; border: 1px solid #444; color: white; padding: 12px; border-radius: 6px; outline: none; }
     input:focus { border-color: var(--primary); }
     .color-row { display: flex; align-items: center; gap: 10px; background: #2b2b2b; padding: 5px 10px; border-radius: 6px; border: 1px solid #444;}
     input[type="color"] { border: none; width: 40px; height: 30px; background: transparent; cursor: pointer; padding: 0;}
-    button {
-        padding: 15px;
-        border: none;
-        border-radius: 8px;
-        font-weight: bold;
-        cursor: pointer;
-        font-size: 1rem;
-        transition: 0.2s;
-        margin-top: 10px;
-    }
-   
+    button { padding: 15px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1rem; transition: 0.2s; margin-top: 10px; }
     .btn-run { background: var(--primary); color: white; }
     .btn-run:hover { background: #0052cc; }
-   
     .btn-zip { background: #00c853; color: white; }
     .btn-zip:hover { background: #009624; }
     .btn-zip:disabled { background: #444; color: #888; cursor: not-allowed; }
-    /* --- GALLERY --- */
-    .gallery-container {
-        flex: 1;
-        padding: 40px;
-        overflow-y: auto;
-        position: relative;
-    }
-    .status-bar {
-        margin-bottom: 20px;
-        padding: 15px;
-        background: #252525;
-        border-radius: 8px;
-        text-align: center;
-        color: #aaa;
-        display: none;
-        border: 1px solid #333;
-    }
-    .gallery {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-        gap: 20px;
-    }
-    .img-item {
-        background: var(--card);
-        padding: 15px;
-        border-radius: 10px;
-        text-align: center;
-        border: 1px solid #333;
-        animation: popIn 0.3s ease;
-    }
-    .img-item img { width: 100%; height: auto; border-radius: 50%; display: block; }
-   
+    .gallery-container { flex: 1; padding: 40px; overflow-y: auto; position: relative; }
+    .status-bar { margin-bottom: 20px; padding: 15px; background: #252525; border-radius: 8px; text-align: center; color: #aaa; display: none; border: 1px solid #333; }
+    .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 20px; }
+    .img-item { background: var(--card); padding: 15px; border-radius: 10px; text-align: center; border: 1px solid #333; animation: popIn 0.3s ease; }
+    .img-item img { width: 100%; height: auto; border-radius: 50%; display: block; margin-bottom: 10px; }
+    .img-name { font-size: 0.9rem; color: #00c853; font-weight: bold; word-break: break-all; font-family: monospace; }
     @keyframes popIn { from{transform: scale(0.8); opacity:0;} to{transform: scale(1); opacity:1;} }
-    /* Responsive */
-    @media(max-width: 700px){
-        .app-container { flex-direction: column; overflow: auto; height: auto; }
-        .sidebar { width: 100%; height: auto; }
-    }
+    @media(max-width: 700px){ .app-container { flex-direction: column; overflow: auto; height: auto; } .sidebar { width: 100%; height: auto; } }
 </style>
 </head>
 <body>
 <div class="app-container">
     <div class="sidebar">
-        <h2>Generador PRO</h2>
+        <h2>Generador v3 (FIX)</h2>
         <div class="input-group">
-            <label>Cantidad (Máx 50)</label>
+            <label>Cantidad Total</label>
             <input type="number" id="cantidad" value="6" min="1" max="50">
         </div>
         <div class="input-group">
             <label>Género</label>
             <select id="genero">
-                <option value="all">Aleatorio</option>
-                <option value="male">Hombre</option>
-                <option value="female">Mujer</option>
+                <option value="all">Aleatorio (Hombres y Mujeres)</option>
+                <option value="male">Solo Hombres</option>
+                <option value="female">Solo Mujeres</option>
             </select>
         </div>
         <div class="input-group">
@@ -136,17 +58,11 @@
         </div>
         <div class="input-group">
             <label>Borde Interno</label>
-            <div class="color-row">
-                <input type="color" id="borde1" value="#ffffff">
-                <span>Seleccionar</span>
-            </div>
+            <div class="color-row"><input type="color" id="borde1" value="#ffffff"></div>
         </div>
         <div class="input-group">
             <label>Borde Externo</label>
-            <div class="color-row">
-                <input type="color" id="borde2" value="#121212">
-                <span>Seleccionar</span>
-            </div>
+            <div class="color-row"><input type="color" id="borde2" value="#121212"></div>
         </div>
         <button class="btn-run" onclick="comenzarProceso()">1. GENERAR FOTOS</button>
         <button class="btn-zip" id="btnZip" onclick="descargarZip()" disabled>2. DESCARGAR ZIP</button>
@@ -157,187 +73,157 @@
     </div>
 </div>
 <script>
-    let imagenesProcesadas = []; // Guardará los base64 para el ZIP
-   
+    let imagenesProcesadas = []; 
     const gallery = document.getElementById('gallery');
     const status = document.getElementById('statusBar');
     const btnZip = document.getElementById('btnZip');
     const btnRun = document.querySelector('.btn-run');
 
     async function comenzarProceso() {
-        // 1. Limpiar interfaz
         imagenesProcesadas = [];
         gallery.innerHTML = '';
         btnZip.disabled = true;
         btnRun.disabled = true;
         btnZip.textContent = "2. DESCARGAR ZIP";
        
-        // 2. Obtener datos
         const cantidadObjetivo = Math.min(parseInt(document.getElementById('cantidad').value) || 1, 50);
         const generoInput = document.getElementById('genero').value;
         const tamano = parseInt(document.getElementById('tamano').value) || 400;
         const c1 = document.getElementById('borde1').value;
         const c2 = document.getElementById('borde2').value;
         
-        mostrarEstado(`Iniciando generación de ${cantidadObjetivo} imágenes...`, true);
-        
-        let generadas = 0;
-        let intentos = 0;
-        
-        // 3. Bucle "While" para garantizar la cantidad exacta
-        // Seguirá ejecutándose hasta que tengamos exactamente las fotos pedidas
-        while(generadas < cantidadObjetivo) {
-            
-            // Freno de seguridad: si intenta 200 veces y no logra, parar para no colgar el PC
-            if(intentos > 200) {
-                alert("Error de red crítico. Verifica tu conexión.");
-                break;
-            }
-            intentos++;
+        // --- CONTROL DE REPETIDOS ---
+        let idsMaleUsados = [];
+        let idsFemaleUsados = [];
 
-            mostrarEstado(`Procesando imagen ${generadas + 1} de ${cantidadObjetivo}...`, true);
-           
-            // Determinar género
-            let g = generoInput;
-            if(g === 'all') g = Math.random() < 0.5 ? 'male' : 'female';
-           
-            // Random ID (0-75)
-            const id = Math.floor(Math.random() * 75);
-           
-            // URL original
-            const urlFuente = `xsgames.co/randomusers/assets/avatars/${g}/${id}.jpg`;
+        mostrarEstado(`Generando ${cantidadObjetivo} imágenes...`, true);
+        
+        let generadasTotal = 0;
+        // Reiniciamos contadores. cM para hombres, cF para mujeres.
+        let cM = 0; 
+        let cF = 0; 
+        let intentosGlobales = 0;
+        
+        while(generadasTotal < cantidadObjetivo) {
             
-            // SOLUCIÓN DEFINITIVA: Usar 'images.weserv.nl'
-            // Este servicio limpia los headers CORS, tiene SSL válido y es muy rápido.
-            // Sintaxis: https://images.weserv.nl/?url=URL_SIN_HTTPS&output=png
+            if(intentosGlobales > 300) { alert("Error de red o falta de imágenes."); break; }
+            intentosGlobales++;
+
+            // 1. DETERMINAR GÉNERO
+            let generoActual = generoInput;
+            if(generoActual === 'all') {
+                generoActual = Math.random() < 0.5 ? 'male' : 'female';
+            }
+            
+            // 2. BUSCAR ID NO USADO (Anti-Duplicados)
+            let id = -1;
+            let esUnico = false;
+            let subTry = 0;
+            
+            while(!esUnico && subTry < 100) {
+                subTry++;
+                id = Math.floor(Math.random() * 78); // 78 es aprox el maximo de la API
+                if(generoActual === 'male') {
+                    if(!idsMaleUsados.includes(id)) { idsMaleUsados.push(id); esUnico = true; }
+                } else {
+                    if(!idsFemaleUsados.includes(id)) { idsFemaleUsados.push(id); esUnico = true; }
+                }
+            }
+            if(!esUnico) continue; // Si no encuentra ID único, saltamos y probamos de nuevo
+
+            // 3. PROCESAR
+            const urlFuente = `xsgames.co/randomusers/assets/avatars/${generoActual}/${id}.jpg`;
             const proxyUrl = `https://images.weserv.nl/?url=${urlFuente}&output=png&w=${tamano}&h=${tamano}`;
 
             try {
                 const base64 = await procesarImagen(proxyUrl, tamano, c1, c2);
                
-                // Guardar y mostrar
-                imagenesProcesadas.push({ nombre: `persona_${generadas+1}.png`, data: base64 });
-                pintarEnGaleria(base64, generadas);
+                // 4. ASIGNAR NOMBRE SEGÚN EL GÉNERO CALCULADO
+                let nombreArchivo = "";
                 
-                generadas++; // Solo incrementamos si tuvo éxito
+                if (generoActual === 'male') {
+                    cM++; 
+                    nombreArchivo = `mpersona_${cM}.png`;  // <--- AQUÍ ESTÁ EL HOMBRE
+                } else {
+                    cF++;
+                    nombreArchivo = `fpersona_${cF}.png`;  // <--- AQUÍ ESTÁ LA MUJER
+                }
+
+                imagenesProcesadas.push({ nombre: nombreArchivo, data: base64 });
+                pintarEnGaleria(base64, nombreArchivo);
+                generadasTotal++; 
                 
             } catch (e) {
-                console.warn("Reintentando imagen...", e);
-                // No incrementamos 'generadas', así que el while se repite
-                // Esperamos 200ms para no saturar
-                await new Promise(r => setTimeout(r, 200));
+                // Fallo silencioso, reintentamos ciclo
+                await new Promise(r => setTimeout(r, 100));
             }
         }
         
-        // 4. Finalizar
         btnRun.disabled = false;
-        if(generadas === cantidadObjetivo) {
+        if(generadasTotal === cantidadObjetivo) {
             btnZip.disabled = false;
-            mostrarEstado(`¡Éxito Total! ${generadas} imágenes listas.`, true);
-        } else {
-            mostrarEstado("Proceso detenido.", true);
+            mostrarEstado(`¡Listo! Generados: ${cM} mpersona y ${cF} fpersona.`, true);
         }
     }
 
     function procesarImagen(url, size, c1, c2) {
         return new Promise(async (resolve, reject) => {
             try {
-                // Fetch
                 const response = await fetch(url);
-                if(!response.ok) throw new Error("Error red");
-               
+                if(!response.ok) throw new Error("Error");
                 const blob = await response.blob();
                 const bitmap = await createImageBitmap(blob);
-               
-                // Canvas setup
                 const canvas = document.createElement('canvas');
-                // Ajustamos padding para que los bordes se vean bien
                 const padding = size * 0.12; 
                 const finalSize = size + padding;
-               
-                canvas.width = finalSize;
-                canvas.height = finalSize;
+                canvas.width = finalSize; canvas.height = finalSize;
                 const ctx = canvas.getContext('2d');
-               
-                // Config calidad
-                ctx.imageSmoothingEnabled = true;
-                ctx.imageSmoothingQuality = 'high';
+                ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
                 
-                const cx = finalSize / 2;
-                const cy = finalSize / 2;
-                const r = size / 2;
+                const cx = finalSize/2; const cy = finalSize/2; const r = size/2;
 
-                // Dibujar Borde Externo
-                ctx.beginPath();
-                ctx.arc(cx, cy, r + (padding/2.5), 0, Math.PI*2);
-                ctx.fillStyle = c2;
-                ctx.fill();
-
-                // Dibujar Borde Interno
-                ctx.beginPath();
-                ctx.arc(cx, cy, r + (padding/6), 0, Math.PI*2);
-                ctx.fillStyle = c1;
-                ctx.fill();
-
-                // Recorte Circular (Máscara)
-                ctx.save();
-                ctx.beginPath();
-                ctx.arc(cx, cy, r, 0, Math.PI*2);
-                ctx.clip();
-
-                // Dibujar la imagen
-                ctx.drawImage(bitmap, cx - r, cy - r, size, size);
-                ctx.restore();
+                ctx.beginPath(); ctx.arc(cx, cy, r + (padding/2.5), 0, Math.PI*2); ctx.fillStyle = c2; ctx.fill();
+                ctx.beginPath(); ctx.arc(cx, cy, r + (padding/6), 0, Math.PI*2); ctx.fillStyle = c1; ctx.fill();
+                ctx.save(); ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI*2); ctx.clip();
+                ctx.drawImage(bitmap, cx-r, cy-r, size, size); ctx.restore();
 
                 resolve(canvas.toDataURL("image/png"));
-            } catch (e) {
-                reject(e);
-            }
+            } catch (e) { reject(e); }
         });
     }
 
-    function pintarEnGaleria(src, index) {
+    function pintarEnGaleria(src, nombre) {
         const div = document.createElement('div');
         div.className = 'img-item';
-        div.innerHTML = `<img src="${src}">`;
+        // Muestra el nombre en texto VERDE debajo de la foto para confirmar
+        div.innerHTML = `<img src="${src}"><div class="img-name">${nombre}</div>`;
         gallery.appendChild(div);
-        // Scroll automático al fondo
         gallery.scrollTop = gallery.scrollHeight;
     }
 
     function descargarZip() {
         if(imagenesProcesadas.length === 0) return;
-        
-        btnZip.textContent = "COMPRIMIENDO...";
-        btnZip.disabled = true;
-        
+        btnZip.textContent = "COMPRIMIENDO..."; btnZip.disabled = true;
         const zip = new JSZip();
-        // Crear carpeta específica "FOTOS_PERSONAS"
+        // Carpeta en el ZIP
         const carpeta = zip.folder("FOTOS_PERSONAS");
         
         imagenesProcesadas.forEach(img => {
-            // Quitar cabecera data:image/png;base64,
             const data = img.data.split(',')[1];
             carpeta.file(img.nombre, data, {base64: true});
         });
         
         zip.generateAsync({type:"blob"}).then(function(content) {
             saveAs(content, "FOTOS_PERSONAS.zip");
-            btnZip.textContent = "2. DESCARGAR ZIP";
-            btnZip.disabled = false;
-            mostrarEstado("Descarga completada.", true);
+            btnZip.textContent = "2. DESCARGAR ZIP"; btnZip.disabled = false;
+            mostrarEstado("Descargado correctamente.", true);
         });
     }
 
     function mostrarEstado(msg, visible) {
         status.style.display = visible ? 'block' : 'none';
         status.textContent = msg;
-        status.style.borderColor = "#333";
-        status.style.color = "#aaa";
-        if(msg.includes("Éxito")) {
-            status.style.color = "#00c853";
-            status.style.borderColor = "#00c853";
-        }
+        status.style.color = msg.includes("Listo") || msg.includes("Descargado") ? "#00c853" : "#aaa";
     }
 </script>
 </body>
